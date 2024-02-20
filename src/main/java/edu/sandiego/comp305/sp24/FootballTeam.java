@@ -15,7 +15,7 @@ public class FootballTeam {
         this.goalsAgainst = goalsAgainst;
     }
 
-    public int compareRank(FootballTeam otherTeam) {
+    public int compareRank(FootballTeam otherTeam, Coin coinFlip) {
         int ourPoints = this.calculatePoints();
         int otherPoints = otherTeam.calculatePoints();
         if (ourPoints < otherPoints) {
@@ -23,12 +23,12 @@ public class FootballTeam {
         } else if (ourPoints > otherPoints) {
             return 1;
         } else {
-            return checkPointDifferential(otherTeam);
+            return checkPointDifferential(otherTeam, coinFlip);
         }
 
     }
 
-    private int checkPointDifferential(FootballTeam otherTeam) {
+    private int checkPointDifferential(FootballTeam otherTeam, Coin coinFlip) {
         int ourPointDifferential = this.getPointDifferential();
         int otherPointDifferential = otherTeam.getPointDifferential();
         if (ourPointDifferential < otherPointDifferential) {
@@ -36,17 +36,21 @@ public class FootballTeam {
         } else if (ourPointDifferential > otherPointDifferential) {
             return 1;
         } else {
-            return checkGoalsScored(otherTeam);
+            return checkGoalsScored(otherTeam, coinFlip);
         }
     }
 
-    private int checkGoalsScored(FootballTeam otherTeam) {
+    private int checkGoalsScored(FootballTeam otherTeam, Coin coinFlip) {
         if (this.goalsScored < otherTeam.getGoalsScored()) {
             return -1;
         } else if (this.goalsScored > otherTeam.getGoalsScored()) {
             return 1;
         } else {
-            return 0;
+            if (coinFlip.flipCoin()) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     }
 
