@@ -19,7 +19,8 @@ class FootballTeamTest {
         FootballTeam ourTeam = new FootballTeam(1,2,1,6,3);
         FootballTeam otherTeam = new FootballTeam(1,2,1,6,3);
         int result = ourTeam.compareRank(otherTeam, quarter);
-        assertEquals(1,result, "Teams should be same rank and return 0");
+        verify(quarter,times(2)).flipCoin();
+        assertEquals(1,result, "Teams should be same rank but we win the coin flip and have a higher rank");
     }
 
     @Test
